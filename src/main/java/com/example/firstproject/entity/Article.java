@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
-@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "ARTICLE")
@@ -21,4 +20,9 @@ public class Article {
     private String title;
     @Column(name = "CONTENT")
     private String content;
+
+    public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

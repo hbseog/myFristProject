@@ -3,12 +3,14 @@ package com.example.firstproject.controller;
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@Slf4j // 로깅을 위한 어노테이션
 public class ArticleController {
     @Autowired
     ArticleRepository articleRepository;
@@ -18,13 +20,16 @@ public class ArticleController {
     }
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm articleForm){
-        System.out.println(articleForm.toString());
+        log.info(articleForm.toString());
+        //System.out.println();
 
         Article article = articleForm.toEntity(); //변환
-        System.out.println(article.toString());
+        log.info(articleForm.toString());
+        //System.out.println(article.toString());
 
         Article saved = articleRepository.save(article);
-        System.out.println(saved.toString());
+        log.info(articleForm.toString());
+        //System.out.println(saved.toString());
         return "";
     }
 }
