@@ -24,11 +24,11 @@ public class ArticleController {
         //System.out.println();
 
         Article article = articleForm.toEntity(); //변환
-        log.info(articleForm.toString());
+        log.info(article.toString());
         //System.out.println(article.toString());
 
         Article saved = articleRepository.save(article);
-        log.info(articleForm.toString());
+        log.info(saved.toString());
         //System.out.println(saved.toString());
         return "";
     }
