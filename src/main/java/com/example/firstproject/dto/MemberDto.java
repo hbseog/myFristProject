@@ -1,5 +1,6 @@
 package com.example.firstproject.dto;
 
+import com.example.firstproject.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
@@ -12,4 +13,7 @@ public class MemberDto {
     private String confirm_pass;
     private String birth;
     private String phone;
+    public Member memberEntity(){
+        return new Member(name,email,pass,confirm_pass,birth,phone);
+    }
 }
