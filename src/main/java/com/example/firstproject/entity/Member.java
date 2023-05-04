@@ -1,6 +1,7 @@
 package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @Entity
@@ -15,17 +16,17 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR2")
     private Long id;
-    @Column
+    @Column(name = "NAME")
     private String name;
-    @Column
+    @Column(name = "EMAIL")
     private String email;
-    @Column
+    @Column(name = "PASS")
     private String pass;
-    @Column
+    @Column(name = "CONFIRM_PASS")
     private String confirm_pass;
-    @Column
+    @Column(name = "BRITH")
     private String birth;
-    @Column
+    @Column(name = "PHONE")
     private String phone;
 
     public Member(String name, String email,String pass, String confirm_pass, String birth, String phone){

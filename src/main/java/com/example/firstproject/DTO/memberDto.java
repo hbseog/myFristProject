@@ -1,4 +1,4 @@
-package com.example.firstproject.dto;
+package com.example.firstproject.DTO;
 
 import com.example.firstproject.entity.Member;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-public class MemberDto {
+public class memberDto {
     private final String name;
     private final String email;
     private final String pass;
