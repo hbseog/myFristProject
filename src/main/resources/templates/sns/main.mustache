@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타그램 스타일 앱 예시 - Mustache 사용</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="app-title">MyInsta</div>
+    <div class="auth">
+        {{#username}}
+            환영합니다, {{username}}님! <a href="/logout">Logout</a>
+        {{/username}}
+        {{^username}}
+            <a href="/login">Login</a>
+        {{/username}}
+    </div>
+</header>
+
+<div class="container">
+    {{#loggedIn}}
+        <div class="post-form">
+            <form action="/posts/new" method="POST">
+                <textarea name="post-text" maxlength="280" placeholder="새로운 게시물을 작성하세요..."></textarea>
+                <button type="submit">게시</button>
+            </form>
+        </div>
+    {{/loggedIn}}
+    {{#timeline}}
+        <div class="post">
+            <div class="post-container">
+                <div class="post-text">{{text}}</div>
+                {{#imageUrl}}
+                    <img src="{{imageUrl}}" alt="" />
+                {{/imageUrl}}
+                <div class="like-container">
+                    <button class="like-button" onclick="toggleLike(this)">좋아요</button>
+                    <span class="like-counter">{{likes}}</span>
+                </div>
+            </div>
+        </div>
+    {{/timeline}}
+</div>
+
+<script src="/static/scripts.js"></script>
+</body>
+</html>
