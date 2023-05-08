@@ -2,11 +2,13 @@ package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 @Entity
 @ToString
-@Table(name = "MEMBER")
+@Getter
+@Table(name = "USER_MEMBER")
 @SequenceGenerator(
         name = "MEMBER_SEQ_GENERATOR2",
         sequenceName = "MEMBER_SEQUENCE",
@@ -36,5 +38,9 @@ public class Member {
         this.confirm_pass=confirm_pass;
         this.birth=birth;
         this.phone=phone;
+    }
+
+    public Member() {
+
     }
 }
