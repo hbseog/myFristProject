@@ -1,7 +1,6 @@
 package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @ToString
