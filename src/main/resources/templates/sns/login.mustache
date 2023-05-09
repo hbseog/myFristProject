@@ -3,24 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인 페이지 - Mustache 사용</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>인스타그램 스타일 앱 예시 - Mustache 사용</title>
+    <style>
+
+        /* 회원가입 폼 스타일 */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .signup-form {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 2px 4px #ddd;
+            border-radius: 4px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            margin-right: 5%;
+            /*    여기*/
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            height: 40px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #3897f0;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
 <header>
     <div class="app-title">MyInsta</div>
-</header>
-
-<div class="container">
-    <div class="auth-form">
-        <form action="/login" method="POST">
-            <input type="text" name="email" placeholder="Username" />
-            <input type="password" name="pass" placeholder="Password" />
-            <button type="submit">Login</button>
-        </form>
+    <div class="auth">
+        {{#username}}
+            환영합니다, {{username}}님! <a href="/logout">Logout</a>
+        {{/username}}
+        {{^username}}
+            <a href="sns/login">Login</a>
+        {{/username}}
     </div>
+</header>
+<div class="auth-container">
+    <form class="signup-form" action="/login" method="POST">
+        <h2 class="form-title">로그인</h2>
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="pass" placeholder="비밀번호를 입력하세요" required>
+        </div>
+        <button class="btn form-btn" type="submit">로그인</button>
+    </form>
 </div>
+<script>
+    async function addNewPost() {
+        const postText = document.getElementById('post-text').value;
+        if (postText.length === 0) return;
 
+        const postImage = document.getElementById('post-image').files[0];
+        let imageDataUrl = null;
+
+        if (postImage) {
+            imageDataUrl = await toBase64(postImage);
+        }
+
+        const post = document.createElement('div');
+        post.classList.add('post');
+        post.innerHTML = `
+      <div class="post-container">
+        <div class="post-text">${postText}</div>
+        ${imageDataUrl ? `<img src="${imageDataUrl}" alt="업로드된 이미지">` : ''}
+        <div class="like-container">
+          <button class="like-button" onclick="toggleLike(this)">좋아요</button>
+          <span class="like-counter">0</span>
+        </div>
+      </div>
+  `;
+
+        const timeline = document.getElementById('timeline');
+        timeline.insertBefore(post, timeline.firstChild);
+
+        document.getElementById('post-text').value = '';
+        document.getElementById('post-image').value = '';
+    }
+
+    function toggleLike(button) { /* 이전 코드는 동일하게 유지 */ }
+
+    function toBase64(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
 </body>
 </html>

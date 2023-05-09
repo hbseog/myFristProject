@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     @Autowired
     MemberRepository memberRepository;
-    @GetMapping("/member/signup")
+    @GetMapping("/sns/signup")
     public String newSignup(){
-        return "/member/signup";
+        return "sns/signup";
     }
-    @PostMapping("/member/create")
+    @PostMapping("/create")
     public String createMember(memberDto memberDto){
         log.info(memberDto.toString());
         Member member = memberDto.memberEntity();
         log.info(member.toString());
         Member saved = memberRepository.save(member);
         log.info(saved.toString());
-        return "login/login";
+        return "sns/login";
     }
 }

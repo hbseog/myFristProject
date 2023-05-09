@@ -3,8 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>인스타그램 스타일 앱 예시 - Mustache 사용</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>왜 안돼시이이이이이이이이잉방바</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .auth {
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .post-form textarea {
+            width: 100%;
+            height: 100px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .post-form button {
+            display: block;
+            margin: 10px 0 0 auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #3897f0;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .post {
+            margin-top: 20px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            box-shadow: 0px 2px 4px #ddd;
+        }
+
+        .post-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .post img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .like-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .like-button {
+            cursor: pointer;
+            font-size: 16px;
+            padding: 6px 10px;
+            color: #8e8e8e;
+            border: none;
+            background-color: transparent;
+            outline: none;
+        }
+
+        .like-button:hover {
+            color: #222;
+        }
+
+        .like-counter {
+            font-size: 16px;
+            color: #8e8e8e;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
@@ -15,36 +119,77 @@
             환영합니다, {{username}}님! <a href="/logout">Logout</a>
         {{/username}}
         {{^username}}
-            <a href="/login">Login</a>
+            <a href="sns/login">Login</a>
         {{/username}}
     </div>
 </header>
 
 <div class="container">
-    {{#loggedIn}}
+    {{#loginStatus}}
         <div class="post-form">
             <form action="/posts/new" method="POST">
                 <textarea name="post-text" maxlength="280" placeholder="새로운 게시물을 작성하세요..."></textarea>
                 <button type="submit">게시</button>
             </form>
         </div>
-    {{/loggedIn}}
-    {{#timeline}}
-        <div class="post">
-            <div class="post-container">
-                <div class="post-text">{{text}}</div>
-                {{#imageUrl}}
-                    <img src="{{imageUrl}}" alt="" />
-                {{/imageUrl}}
-                <div class="like-container">
-                    <button class="like-button" onclick="toggleLike(this)">좋아요</button>
-                    <span class="like-counter">{{likes}}</span>
-                </div>
-            </div>
-        </div>
-    {{/timeline}}
+    {{/loginStatus}}
+<!--    {{#timeline}}-->
+<!--        <div class="post">-->
+<!--            <div class="post-container">-->
+<!--                <div class="post-text">{{text}}</div>-->
+<!--                {{#imageUrl}}-->
+<!--                    <img src="{{imageUrl}}" alt="" />-->
+<!--                {{/imageUrl}}-->
+<!--                <div class="like-container">-->
+<!--                    <button class="like-button" onclick="toggleLike(this)">좋아요</button>-->
+<!--                    <span class="like-counter">{{likes}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    {{/timeline}}-->
 </div>
 
-<script src="/static/scripts.js"></script>
+<script>
+    async function addNewPost() {
+        const postText = document.getElementById('post-text').value;
+        if (postText.length === 0) return;
+
+        const postImage = document.getElementById('post-image').files[0];
+        let imageDataUrl = null;
+
+        if (postImage) {
+            imageDataUrl = await toBase64(postImage);
+        }
+
+        const post = document.createElement('div');
+        post.classList.add('post');
+        post.innerHTML = `
+      <div class="post-container">
+        <div class="post-text">${postText}</div>
+        ${imageDataUrl ? `<img src="${imageDataUrl}" alt="업로드된 이미지">` : ''}
+        <div class="like-container">
+          <button class="like-button" onclick="toggleLike(this)">좋아요</button>
+          <span class="like-counter">0</span>
+        </div>
+      </div>
+  `;
+
+        const timeline = document.getElementById('timeline');
+        timeline.insertBefore(post, timeline.firstChild);
+
+        document.getElementById('post-text').value = '';
+        document.getElementById('post-image').value = '';
+    }
+
+    function toggleLike(button) { /* 이전 코드는 동일하게 유지 */ }
+
+    function toBase64(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
 </body>
 </html>

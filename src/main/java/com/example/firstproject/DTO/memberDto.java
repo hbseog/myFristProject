@@ -11,9 +11,10 @@ public class memberDto {
     private final String email;
     private final String pass;
     private final String confirm_pass;
-    private final String birth;
-    private final String phone;
+    private final String loginStatus;
+//    private final String birth;
+//    private final String phone;
     public Member memberEntity(){
-        return new Member(name,email,pass,confirm_pass,birth,phone);
+        return new Member(name,email,pass,confirm_pass/*,birth,phone*/);
     }
 }
