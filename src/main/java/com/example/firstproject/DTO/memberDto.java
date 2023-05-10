@@ -15,6 +15,6 @@ public class memberDto {
 //    private final String birth;
 //    private final String phone;
     public Member memberEntity(){
-        return new Member(name,email,pass,confirm_pass/*,birth,phone*/);
+        return new Member(name,email,pass/*,confirm_pass,birth,phone*/);
     }
 }

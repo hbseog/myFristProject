@@ -1,6 +1,7 @@
 package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,25 +26,25 @@ public class Member {
     private String email;
     @Column(name = "PASS")
     private String pass;
-    @Column(name = "CONFIRM_PASS")
-    private String confirm_pass;
-    @Column(name = "login")
-    private String loginStatus;
+//    @Column(name = "CONFIRM_PASS")
+//    private String confirm_pass;
+    @Column(name = "loginstatus")
+    private String loginstatus;
 //    @Column(name = "BRITH")
 //    private String birth;
 //    @Column(name = "PHONE")
 //    private String phone;
 
-    public Member(String name, String email,String pass, String confirm_pass/*, String birth, String phone*/){
+    public Member(String name, String email,String pass/*, String confirm_pass, String birth, String phone*/){
         this.name=name;
         this.email=email;
         this.pass=pass;
-        this.confirm_pass=confirm_pass;
+//        this.confirm_pass=confirm_pass;
 //        this.birth=birth;
 //        this.phone=phone;
     }
 
-    public Member() {
 
+    public Member() {
     }
 }
