@@ -2,6 +2,7 @@ package com.example.firstproject.controller;
 
 import com.example.firstproject.entity.Member;
 import com.example.firstproject.repository.MemberRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +34,22 @@ public class loginController {
             userRepository.save(user);
             session.setAttribute("user", user); // 세션 생성
             model.addAttribute("username", user.getName());
-            return "sns/main";
+            return "redirect:sns/main";
         } else {
             // 로그인 실패
             return "sns/login";
+        }
+    }
+
+    @Controller
+    public class LoginController {
+        @GetMapping("/logout")
+        public String logout(HttpServletRequest request) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate(); // 세션 무효화
+            }
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
         }
     }
 
@@ -47,6 +60,6 @@ public class loginController {
             return ResponseEntity.ok(true);
         } else {
             return ResponseEntity.ok(false);
-        }// userService 는 사용자 데이터를 처리하는 서비스 객체입니다.
+        }
     }
 }

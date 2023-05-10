@@ -74,17 +74,7 @@
 </head>
 <body>
 
-<header>
-    <div class="app-title">MyInsta</div>
-    <div class="auth">
-        {{#username}}
-            환영합니다, {{username}}님! <a href="/logout">Logout</a>
-        {{/username}}
-        {{^username}}
-            <a href="sns/login">Login</a>
-        {{/username}}
-    </div>
-</header>
+{{>sns/header}}
 <div class="auth-container">
     <form class="signup-form" action="/login" method="POST">
         <h2 class="form-title">로그인</h2>

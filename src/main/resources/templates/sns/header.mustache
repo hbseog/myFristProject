@@ -1,0 +1,11 @@
+<header>
+    <div class="app-title">MyInsta</div>
+    <div class="auth">
+        {{#username}}
+            환영합니다, {{username}}님! <a href="/logout">Logout</a>
+        {{/username}}
+        {{^username}}
+            <a href="sns/login">Login</a>
+        {{/username}}
+    </div>
+</header>

@@ -112,27 +112,18 @@
 </head>
 <body>
 
-<header>
-    <div class="app-title">MyInsta</div>
-    <div class="auth">
-        {{#username}}
-            환영합니다, {{username}}님! <a href="/logout">Logout</a>
-        {{/username}}
-        {{^username}}
-            <a href="sns/login">Login</a>
-        {{/username}}
-    </div>
-</header>
+{{>sns/header}}
+
 
 <div class="container">
-    {{#loginStatus}}
+    {{#loginstatus}}
         <div class="post-form">
             <form action="/posts/new" method="POST">
                 <textarea name="post-text" maxlength="280" placeholder="새로운 게시물을 작성하세요..."></textarea>
                 <button type="submit">게시</button>
             </form>
         </div>
-    {{/loginStatus}}
+    {{/loginstatus}}
 <!--    {{#timeline}}-->
 <!--        <div class="post">-->
 <!--            <div class="post-container">-->
