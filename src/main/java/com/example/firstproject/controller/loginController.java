@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class loginController {
     private final MemberRepository userRepository;
-    @GetMapping("/sns/main")
-    public String mainPage() {
-        return "sns/main";
-    }
 
     @PostMapping("/login")
     public String checkInfo(@RequestParam String email, @RequestParam String pass, HttpSession session, Model model) {
@@ -34,23 +30,26 @@ public class loginController {
             userRepository.save(user);
             session.setAttribute("user", user); // 세션 생성
             model.addAttribute("username", user.getName());
-            return "redirect:sns/main";
+            model.addAttribute("loginstatus", user.getLoginstatus());
+            return "sns/main";
         } else {
             // 로그인 실패
             return "sns/login";
         }
     }
 
-    @Controller
-    public class LoginController {
-        @GetMapping("/logout")
-        public String logout(HttpServletRequest request) {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate(); // 세션 무효화
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            Member user = (Member) session.getAttribute("user");
+            if (user != null) {
+                user.setLoginstatus(null);
+                userRepository.save(user);
             }
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            session.invalidate(); // 세션 무효화
         }
+        return "sns/login"; // 로그인 페이지로 리다이렉트
     }
 
     @GetMapping("/email-check")
