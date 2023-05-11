@@ -118,26 +118,27 @@
 <div class="container">
     {{#loginstatus}}
         <div class="post-form">
-            <form action="/posts/new" method="POST">
-                <textarea name="post-text" maxlength="280" placeholder="새로운 게시물을 작성하세요..."></textarea>
+            <form action="/post" method="POST" enctype="multipart/form-data" >
+                <textarea name="content" maxlength="280" placeholder="새로운 게시물을 작성하세요..." ></textarea>
+                <input type="file" name="images" multiple>
                 <button type="submit">게시</button>
             </form>
         </div>
     {{/loginstatus}}
-<!--    {{#timeline}}-->
-<!--        <div class="post">-->
-<!--            <div class="post-container">-->
-<!--                <div class="post-text">{{text}}</div>-->
-<!--                {{#imageUrl}}-->
-<!--                    <img src="{{imageUrl}}" alt="" />-->
-<!--                {{/imageUrl}}-->
-<!--                <div class="like-container">-->
-<!--                    <button class="like-button" onclick="toggleLike(this)">좋아요</button>-->
-<!--                    <span class="like-counter">{{likes}}</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    {{/timeline}}-->
+    {{#timeline}}
+        <div class="post">
+            <div class="post-container">
+                <div class="post-text">{{text}}</div>
+                {{#imageUrl}}
+                    <img src="{{imageUrl}}" alt="" />
+                {{/imageUrl}}
+                <div class="like-container">
+                    <button class="like-button" onclick="toggleLike(this)">좋아요</button>
+                    <span class="like-counter">{{likes}}</span>
+                </div>
+            </div>
+        </div>
+    {{/timeline}}
 </div>
 
 <script>
