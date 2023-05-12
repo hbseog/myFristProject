@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,7 +32,7 @@ public class loginController {
             session.setAttribute("user", user); // 세션 생성
             model.addAttribute("username", user.getName());
             model.addAttribute("loginstatus", user.getLoginstatus());
-            return "sns/main";
+            return "redirect:sns/main";
         } else {
             // 로그인 실패
             return "sns/login";
@@ -49,7 +50,7 @@ public class loginController {
             }
             session.invalidate(); // 세션 무효화
         }
-        return "sns/login"; // 로그인 페이지로 리다이렉트
+        return "redirect:sns/login"; // 로그인 페이지로 리다이렉트
     }
 
     @GetMapping("/email-check")

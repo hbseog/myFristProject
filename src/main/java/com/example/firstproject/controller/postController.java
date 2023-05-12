@@ -36,25 +36,14 @@ public class postController {
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
                     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-                    log.info("1");
-                    Path filePath = Paths.get("/static/uploads").resolve(fileName);
-                    log.info("2");
-                    log.info(file.getInputStream().toString());
-                    log.info(filePath.toString());
+                    Path filePath = Paths.get("C:\\lecture\\firstproject\\src\\main\\resources\\static\\uploads").resolve(fileName);
                     Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-                    log.info("3");
-
                     Image image = new Image(filePath.toString(), post);
-                    log.info("4");
                     images.add(image);
-                    log.info("5");
                 }
             }
-
             post.setImages(images);
-            log.info("6");
             postRepository.save(post);
-            log.info("7");
             return "sns/main";
 
         } catch (IOException e) {

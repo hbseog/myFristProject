@@ -120,6 +120,10 @@
         <div class="post-form">
             <form action="/post" method="POST" enctype="multipart/form-data" >
                 <textarea name="content" maxlength="280" placeholder="새로운 게시물을 작성하세요..." ></textarea>
+                <div id="drop-zone">
+                    <p>여기에 파일을 끌어다 놓으세요.</p>
+                    <div id="preview"></div>
+                </div>
                 <input type="file" name="images" multiple>
                 <button type="submit">게시</button>
             </form>
@@ -181,6 +185,32 @@
             reader.onload = (e) => resolve(e.target.result);
             reader.readAsDataURL(file);
         });
+    }
+
+    var dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileSelect, false);
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.dataTransfer.dropEffect = 'copy';
+    }
+
+    function handleFileSelect(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var files = e.dataTransfer.files;
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.width = 200;
+                document.getElementById('preview').appendChild(img);
+            }
+            reader.readAsDataURL(files[i]);
+        }
     }
 </script>
 </body>
