@@ -108,6 +108,13 @@
             color: #8e8e8e;
             font-weight: bold;
         }
+        .drop-area {
+            border: 2px dashed #ccc;
+            width: 100%;
+            margin: 20px auto;
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -118,14 +125,21 @@
 <div class="container">
     {{#loginstatus}}
         <div class="post-form">
-            <form action="/post" method="POST" enctype="multipart/form-data" >
-                <textarea name="content" maxlength="280" placeholder="새로운 게시물을 작성하세요..." ></textarea>
-                <div id="drop-zone">
-                    <p>여기에 파일을 끌어다 놓으세요.</p>
-                    <div id="preview"></div>
+            <form method="post" action="/post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <textarea name="content" placeholder="Write your post..." rows="5" cols="80"></textarea>
                 </div>
-                <input type="file" name="images" multiple>
-                <button type="submit">게시</button>
+                <div class="form-group">
+                    <input type="file" name="images" multiple onchange="handleFiles(event, 'upload-gallery')" style="display: none;" id="file-input">
+
+                    <div class="drop-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+                        <p>드래그 앤 드롭 또는 클릭으로 파일 선택</p>
+                    </div>
+                    <div id="upload-gallery"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
     {{/loginstatus}}
@@ -177,7 +191,7 @@
         document.getElementById('post-image').value = '';
     }
 
-    function toggleLike(button) { /* 이전 코드는 동일하게 유지 */ }
+    function toggleLike(button) {  }
 
     function toBase64(file) {
         return new Promise((resolve) => {
@@ -187,31 +201,85 @@
         });
     }
 
-    var dropZone = document.getElementById('drop-zone');
-    dropZone.addEventListener('dragover', handleDragOver, false);
-    dropZone.addEventListener('drop', handleFileSelect, false);
 
-    function handleDragOver(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.dataTransfer.dropEffect = 'copy';
+    const fileInput = document.getElementById('file-input');
+    const gallery = document.getElementById('upload-gallery');
+    let allFiles = [];
+
+    function handleDrop(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const newFiles = event.dataTransfer.files;
+        addFiles(newFiles);
+        showFiles();
     }
 
-    function handleFileSelect(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var files = e.dataTransfer.files;
-        for (var i = 0; i < files.length; i++) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = document.createElement('img');
-                img.src = e.target.result;
-                img.width = 200;
-                document.getElementById('preview').appendChild(img);
-            }
-            reader.readAsDataURL(files[i]);
+    function handleFiles(event) {
+        const newFiles = event.target.files;
+        addFiles(newFiles);
+        showFiles();
+    }
+
+    function addFiles(newFiles) {
+        allFiles = [...allFiles, ...Array.from(newFiles)];
+        updateFileInput();
+    }
+
+    function updateFileInput() {
+        const dataTransfer = new DataTransfer();
+
+        allFiles.forEach(file => dataTransfer.items.add(file));
+        fileInput.files = dataTransfer.files;
+    }
+
+    function showFiles() {
+        while (gallery.firstChild) {
+            gallery.removeChild(gallery.firstChild);
         }
+
+        allFiles.forEach(file => {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.height = 60;
+            img.onload = () => URL.revokeObjectURL(img.src);
+            gallery.appendChild(img);
+        });
     }
+
+    fileInput.parentNode.onclick = () => fileInput.click();
+
+
+    // var dropZone = document.getElementById('drop-zone');
+    // dropZone.addEventListener('dragover', handleDragOver, false);
+    // dropZone.addEventListener('drop', handleFileSelect, false);
+    //
+    // //파일 추가 클릭시 드랍존이 나타나도록 하기 위해 이벤트 클릭 추가
+    // document.getElementById("drop-zone").addEventListener("click", function () {
+    //     document.getElementById("fileInput").click();
+    // });
+    //
+    // function handleDragOver(e) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     e.dataTransfer.dropEffect = 'copy';
+    // }
+    //
+    // function handleFileSelect(e) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     var files = e.dataTransfer.files;
+    //     for (var i = 0; i < files.length; i++) {
+    //         var reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             var img = document.createElement('img');
+    //             img.src = e.target.result;
+    //             img.width = 200;
+    //             document.getElementById('preview').appendChild(img);
+    //         }
+    //         reader.readAsDataURL(files[i]);
+    //     }
+    // }
 </script>
 </body>
 </html>

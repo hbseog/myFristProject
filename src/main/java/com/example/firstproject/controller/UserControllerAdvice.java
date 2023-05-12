@@ -17,4 +17,13 @@ public class UserControllerAdvice {
             return user.getName();
         }
     }
+    @ModelAttribute("loginstatus")
+    public String loginStatusModel(HttpSession session) {
+        Member user = (Member) session.getAttribute("user");
+        if (user == null) {
+            return null;
+        } else {
+            return user.getLoginstatus();
+        }
+    }
 }
