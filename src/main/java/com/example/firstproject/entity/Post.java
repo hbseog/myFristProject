@@ -30,6 +30,8 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
+    @Column(name = "user_id")
+    private Long user_id;
     public Post() {
     }
     public Post(String content) {

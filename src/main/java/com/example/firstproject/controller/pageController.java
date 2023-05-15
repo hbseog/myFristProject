@@ -9,8 +9,12 @@ public class pageController {
     public String mainPage() {
         return "sns/main";
     }
-    @GetMapping("/login")
+    @GetMapping("sns/login")
     public String loginPage(){
+        return "sns/login";
+    }
+    @GetMapping("/login")
+    public String loginPage2(){
         return "sns/login";
     }
     @GetMapping("/signup")

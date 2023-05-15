@@ -1,7 +1,10 @@
 package com.example.firstproject.controller;
 
 import com.example.firstproject.entity.Member;
+import com.example.firstproject.entity.Post;
+import com.example.firstproject.repository.ImageRepository;
 import com.example.firstproject.repository.MemberRepository;
+import com.example.firstproject.repository.PostRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -19,12 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class loginController {
     private final MemberRepository userRepository;
+    private final PostRepository postRepository;
+    private final ImageRepository imageRepository;
 
     @PostMapping("/login")
     public String checkInfo(@RequestParam String email, @RequestParam String pass, HttpSession session, Model model) {
         log.info(email);
         log.info(pass);
         Member user = userRepository.findByEmail(email).orElse(null);
+//        Post post = postRepository.findBy
+
         if (user != null && user.getPass().equals(pass)) {
             // 로그인 성공
             user.setLoginstatus("1");

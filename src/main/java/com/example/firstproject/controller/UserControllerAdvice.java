@@ -26,4 +26,14 @@ public class UserControllerAdvice {
             return user.getLoginstatus();
         }
     }
+
+    @ModelAttribute("id")
+    public Long idModel(HttpSession session) {
+        Member user = (Member) session.getAttribute("user");
+        if (user == null) {
+            return null;
+        } else {
+            return user.getId();
+        }
+    }
 }
