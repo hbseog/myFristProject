@@ -34,4 +34,14 @@ public class Image {
         this.imagePath=imagePath;
         this.post=post;
     }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+//    public String getImagePath() {
+//        return imagePath;
+//    }
 }

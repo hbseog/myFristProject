@@ -2,7 +2,22 @@ package com.example.firstproject.repository;
 
 import com.example.firstproject.entity.Member;
 import com.example.firstproject.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 public interface PostRepository extends CrudRepository<Post,Long> {
+//    @Query("SELECT p FROM Post p WHERE p.user_id = :id")
+//    List<Post> findByUserId(@Param("id") Long id);
+    @Query("SELECT p FROM Post p ORDER BY p.created_at DESC")
+    Page<Post> findLatestPosts(Pageable pageable);
+    // 최근 게시된 게시글을 가져오는 쿼리
+    List<Post> findByPostIds(List<Long> postIds, Pageable pageable);
 }
