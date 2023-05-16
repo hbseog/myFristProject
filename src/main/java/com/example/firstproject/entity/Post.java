@@ -41,7 +41,6 @@ public class Post {
     @Column(name = "user_id")
     private Long user_id;
 
-
     @Column(name = "created_at")
     private LocalDateTime created_at;
     @PrePersist

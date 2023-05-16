@@ -13,11 +13,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface PostRepository extends CrudRepository<Post,Long> {
+public interface PostRepository extends JpaRepository<Post,Long> {
+//    @Query("SELECT Post p FROM p join WHERE p.user_id =: user")
+//    List
+//    Page<Post> findByUserId(Long userId, Pageable pageable);
 //    @Query("SELECT p FROM Post p WHERE p.user_id = :id")
 //    List<Post> findByUserId(@Param("id") Long id);
-    @Query("SELECT p FROM Post p ORDER BY p.created_at DESC")
-    Page<Post> findLatestPosts(Pageable pageable);
+//    @Query("SELECT p FROM Post p ORDER BY p.created_at DESC")
+//    Page<Post> findLatestPosts(Pageable pageable);
     // 최근 게시된 게시글을 가져오는 쿼리
-    List<Post> findByPostIds(List<Long> postIds, Pageable pageable);
+//    List<Post> findByPostIds(List<Long> postIds, Pageable pageable);
 }
