@@ -12,8 +12,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
+    List<Post> findByUserId(Long userId);
 //    @Query("SELECT Post p FROM p join WHERE p.user_id =: user")
 //    List
 //    Page<Post> findByUserId(Long userId, Pageable pageable);

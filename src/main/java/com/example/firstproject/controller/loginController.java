@@ -38,6 +38,7 @@ public class loginController {
         log.info(email);
         log.info(pass);
         Member user = userRepository.findByEmail(email).orElse(null);
+        log.info(user.toString());
 
         if (user != null && user.getPass().equals(pass)) {
             // 로그인 성공

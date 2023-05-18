@@ -54,7 +54,7 @@ public class postController {
             }
             post.setImages(images);
             UserControllerAdvice a = new UserControllerAdvice();
-            post.setUser_id(a.idModel(session));
+            post.setUserId(a.idModel(session));
             postRepository.save(post);
             return "sns/main";
 

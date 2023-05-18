@@ -38,8 +38,8 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
-    @Column(name = "user_id")
-    private Long user_id;
+    @Column(name = "userId")
+    private Long userId;
 
     @Column(name = "created_at")
     private LocalDateTime created_at;
