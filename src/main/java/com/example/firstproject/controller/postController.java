@@ -56,7 +56,7 @@ public class postController {
             UserControllerAdvice a = new UserControllerAdvice();
             post.setUserId(a.idModel(session));
             postRepository.save(post);
-            return "sns/main";
+            return "redirect:/sns/timeline";
 
         } catch (IOException e) {
             throw new RuntimeException("Could not store the images. Please try again!", e);

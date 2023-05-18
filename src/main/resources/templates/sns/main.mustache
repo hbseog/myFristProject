@@ -143,20 +143,20 @@
             </form>
         </div>
 
-<!--    {{#timeline}}-->
+                {{#timeline}}
         <div class="post">
             <div class="post-container">
-                <div class="post-text">{{text}}</div>
-                {{#imageUrl}}
-                    <img src="{{imageUrl}}" alt="" />
-                {{/imageUrl}}
+                <div class="post-text">{{content}}</div>
+                {{#images}}
+                    <img src="{{imagePath}}" alt="" />
+                {{/images}}
                 <div class="like-container">
                     <button class="like-button" onclick="toggleLike(this)">좋아요</button>
-                    <span class="like-counter">{{likes}}</span>
+
                 </div>
             </div>
         </div>
-<!--    {{/timeline}}-->
+                {{/timeline}}
     {{/loginstatus}}
 </div>
 

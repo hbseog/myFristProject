@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@ToString
+//@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class Image {
     private String imagePath;
 
     @ManyToOne
-    @JoinColumn(name="post_id", nullable = false)
+    @JoinColumn(name="postid", nullable = false)
     private Post post;
 
     public Image() {

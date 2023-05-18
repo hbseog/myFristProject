@@ -18,7 +18,7 @@ import java.util.List;
 import java.awt.*;
 
 @Entity
-@ToString
+//@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -41,16 +41,17 @@ public class Post {
     @Column(name = "userId")
     private Long userId;
 
-    @Column(name = "created_at")
-    private LocalDateTime created_at;
+    @Column(name = "createdAt")
+//    @OrderBy("createdAt ASC")
+    private LocalDateTime createdAt;
     @PrePersist
     public void addDate(){
-        this.created_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     public String getFormattedDatetime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 hh시 mm분");
-        return created_at.format(formatter);
+        return createdAt.format(formatter);
     }
     public Post() {
     }

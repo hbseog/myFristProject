@@ -50,7 +50,8 @@ public class loginController {
             model.addAttribute("id",user.getId());
 //            model.addAttribute()
 
-            return "redirect:sns/main";
+            return "redirect:sns/timeline";
+//            return "sns/main";
         } else {
             // 로그인 실패
             return "sns/login";

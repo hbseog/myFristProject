@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class pageController {
-    @GetMapping("/sns/main")
-    public String mainPage() {
-        return "sns/main";
-    }
+//    @GetMapping("/sns/timeline")
+//    public String mainPage() {
+//        return "sns/main";
+//    }
+
     @GetMapping("sns/login")
     public String loginPage(){
         return "sns/login";
