@@ -52,11 +52,12 @@ public class postController {
                     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
                     String fileExtension = fileName.substring(fileName.lastIndexOf("."));
                     String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-                    Path filePath = Paths.get("C:\\lecture\\firstproject\\src\\main\\resources\\static\\uploads").resolve(uniqueFileName);
+//                    Path filePath = Paths.get("C:\\lecture\\firstproject\\src\\main\\resources\\static\\uploads").resolve(uniqueFileName);
+                    Path filePath = Paths.get("C:\\images").resolve(uniqueFileName);
 //                    서버 올리면 주소 변경하기
                     Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 //                    Image image = new Image(filePath.toString(), post);
-                    Image image = new Image("http://localhost:8080/uploads/"+uniqueFileName, post);
+                    Image image = new Image("/uploads/" + uniqueFileName, post);
                     images.add(image);
                 }
             }
