@@ -3,11 +3,13 @@ package com.example.firstproject.repository;
 import com.example.firstproject.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post,Long> {
+public interface PostRepository extends CrudRepository<Post,Long> {
     List<Post> findByUserIdOrderByCreatedAtDesc(Long userId);
     Optional<Post> findById(Long Id);
 //    @Query("SELECT Post p FROM p join WHERE p.user_id =: user")

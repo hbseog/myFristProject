@@ -35,10 +35,10 @@ public class timelineController {
         for(Post i : post){
             List<Image> images = imageRepository.findByPost(i);
             i.setImages(images);
-            if(i.getContent() == null){
-                i.setContent(" ");
-                postRepository.save(post);
-            }
+//            if(i.getContent() == ""null""){
+//                i.setContent("123");
+//                postRepository.saveAll(post);
+//            }
         }
 //        for(Post i : post) {
 //            List<Image> images = imageRepository.findByPost(i);
