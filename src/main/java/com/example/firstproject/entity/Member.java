@@ -1,7 +1,6 @@
 package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,10 +35,10 @@ public class Member {
 //    private String birth;
 //    @Column(name = "PHONE")
 //    private String phone;
-    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Follow> followers;
-    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Follow> followings;
+//    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Following> followers;
+//    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Following> followings;
 
     public Member(String name, String email, String pass/*, String confirm_pass, String birth, String phone*/) {
         this.name = name;
