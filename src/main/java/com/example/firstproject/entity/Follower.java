@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class Follower {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +28,14 @@ public class Follower {
         this.followerId = followerId;
     }
 
-    public Follower() {
+    public Follower(Member member, Long followerId) {
+        this.member = member;
+        this.followerId=followerId;
 
     }
 
 
+    public Follower() {
+
+    }
 }

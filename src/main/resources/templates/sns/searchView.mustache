@@ -74,7 +74,7 @@
 </head>
 <body>
 {{>sns/header}}
-{{#loginstatus}}
+
 {{#info}}
     <form action="/follow" method="post">
         <div>
@@ -83,12 +83,17 @@
         <div class="auth-container">
             <div style="border: solid black">{{name}}</div>
             <div style="border: solid black">{{email}}</div>
-            <div style="border: solid black">{{loginstatus}}</div>
+            {{#loginstatus}}
+                <div style="border: solid black">로그인</div>
+            {{/loginstatus}}
+            {{^loginstatus}}
+                <div style="border: solid black">로그아웃</div>
+            {{/loginstatus}}
         </div>
         <button type="submit">팔로우</button>
     </form>
 {{/info}}
-{{/loginstatus}}
+
 
 {{^info}}
     검색 결과가 없습니다.

@@ -32,10 +32,11 @@ public class Member {
     @Column(name = "loginstatus")
     private String loginstatus;
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Follower> followers;
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Following> followings;
+    @OneToMany(mappedBy = "member",orphanRemoval = true)
+    private List<Follower> followers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member",orphanRemoval = true)
+    private List<Following> followings = new ArrayList<>();
 
     public Member(String name, String email, String pass) {
         this.name = name;
@@ -43,20 +44,20 @@ public class Member {
         this.pass = pass;
 
     }
-//    public void addFollower(Follower follower) {
+    public void addFollower(Follower follower) {
 //        if (followers == null) {
 //            followers = new ArrayList<>();
 //        }
-//        followers.add(follower);
-//        follower.setMember(this);
-//    }
-//    public void addFollowing(Following following) {
-//        if (followings == null) {
-//            followings = new ArrayList<>();
+        this.followers.add(follower);
+        follower.setMember(this);
+    }
+    public void addFollowing(Following following) {
+//        if (followers == null) {
+//            followers = new ArrayList<>();
 //        }
-//        followings.add(following);
-//        following.setMember(this);
-//    }
+        this.followings.add(following);
+        following.setMember(this);
+    }
 
 
     public Member() {
