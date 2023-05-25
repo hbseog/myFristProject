@@ -1,13 +1,59 @@
-//package com.example.firstproject.controller;
-//
-//import jakarta.servlet.http.HttpSession;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RequestParam;
-//
-//@Controller
-//public class followController {
-//    public String follow(HttpSession session){
-//        (session.getId())
-//        return "";
-//    }
-//}
+package com.example.firstproject.controller;
+
+import com.example.firstproject.DTO.memberDto;
+import com.example.firstproject.entity.Follower;
+import com.example.firstproject.entity.Following;
+import com.example.firstproject.entity.Member;
+import com.example.firstproject.repository.FollowerRepository;
+import com.example.firstproject.repository.FollowingRepository;
+import com.example.firstproject.repository.MemberRepository;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+@Slf4j
+public class followController {
+    @Autowired
+    UserControllerAdvice a;
+    @Autowired
+    FollowerRepository followerRepository;
+    @Autowired
+    FollowingRepository followingRepository;
+    @Autowired
+    MemberRepository memberRepository;
+
+    @PostMapping("/follow")
+    public String follow(@RequestParam Long id, HttpSession session) {
+        log.info(id.toString());
+        //팔로우를 누른 사용자
+        Member members = memberRepository.findAllById(a.idModel(session));
+        log.info("팔로우를 누른 사용자" + members);
+        //팔로우를 누름 당한 사용자
+        Member user = memberRepository.findAllById(id);
+        log.info("팔로우를 눌린 사용자" + user);
+
+//        Following following = followingRepository.findById(a.idModel(session));
+        //팔로우를 누름 당한 사용자를 팔로잉에 저장하기위해 Following객체화
+        List<Following> following = followingRepository.findByMember(user);
+//        log.info("팔로우를 눌린 사용자 리스트화" + following.get(0));
+
+        //팔로우를 누른 사용자를 팔로워에 저장하기위해 Follower객체화
+        List<Follower> follower = followerRepository.findByMember(members);
+//        log.info("팔로우를 누른 사용자 리스트화" + follower.get(0));
+        members.setFollowers(follower);
+        user.setFollowings(following);
+        memberRepository.save(members);
+        memberRepository.save(user);
+//        followerRepository.save(follower.get(0));
+//        followingRepository.save(following.get(0));
+        session.getId();
+        return "redirect:searchView";
+    }
+}

@@ -1,10 +1,9 @@
 package com.example.firstproject.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +16,8 @@ import java.util.List;
         sequenceName = "MEMBER_SEQUENCE",
         allocationSize = 1
 )
+@AllArgsConstructor
+
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR2")
@@ -27,27 +28,35 @@ public class Member {
     private String email;
     @Column(name = "PASS")
     private String pass;
-    //    @Column(name = "CONFIRM_PASS")
-//    private String confirm_pass;
+
     @Column(name = "loginstatus")
     private String loginstatus;
-    //    @Column(name = "BRITH")
-//    private String birth;
-//    @Column(name = "PHONE")
-//    private String phone;
-//    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Following> followers;
-//    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Following> followings;
 
-    public Member(String name, String email, String pass/*, String confirm_pass, String birth, String phone*/) {
+    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Follower> followers;
+    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Following> followings;
+
+    public Member(String name, String email, String pass) {
         this.name = name;
         this.email = email;
         this.pass = pass;
-//        this.confirm_pass=confirm_pass;
-//        this.birth=birth;
-//        this.phone=phone;
+
     }
+//    public void addFollower(Follower follower) {
+//        if (followers == null) {
+//            followers = new ArrayList<>();
+//        }
+//        followers.add(follower);
+//        follower.setMember(this);
+//    }
+//    public void addFollowing(Following following) {
+//        if (followings == null) {
+//            followings = new ArrayList<>();
+//        }
+//        followings.add(following);
+//        following.setMember(this);
+//    }
 
 
     public Member() {

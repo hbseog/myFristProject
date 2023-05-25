@@ -35,7 +35,7 @@ public class Post {
     @Column(nullable = true)
     private String content;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Image> images;
 
     @Column(name = "userId")

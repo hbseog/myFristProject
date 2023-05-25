@@ -1,16 +1,19 @@
 <header>
     <div class="app-title">MyInsta</div>
+    {{#loginstatus}}
+<!--        로그인 후 이용해주세요.-->
 
-    <form action="/search">
+    <form action="/search" method="post">
         <input type="text"
                style="
                width:50rem;
                height: 30px;
                margin-left: auto;
 
-">
+"  id="name" name="name">
+        <input type="submit" value="검색">
     </form>
-
+    {{/loginstatus}}
     <div class="auth">
         {{#username}}
             환영합니다, {{username}}님! <a href="/logout">Logout</a>

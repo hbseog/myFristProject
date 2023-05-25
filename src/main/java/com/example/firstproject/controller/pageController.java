@@ -22,4 +22,8 @@ public class pageController {
     public String signupPage(){
         return "sns/signup";
     }
+    @GetMapping("/searchView")
+    public String searchViewPage(){
+        return "sns/searchView";
+    }
 }
